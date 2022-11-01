@@ -39,13 +39,76 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-}
 
-void Game::ComposeFrame()
-{
+	//postiion
+	if (wnd.kbd.KeyIsPressed(w_key)) {
+		if (inhibitUp) {
+			
+		}
+		else
+		{
+			vy = vy - 1;
+			inhibitUp = true;
+		}
+		
+	}
+	else
+	{
+		inhibitUp = false;
+	}
+
+	if (wnd.kbd.KeyIsPressed(a_key)) {
+		if (inhibitLeft) {
+
+		}
+		else
+		{
+		vx = vx - 1;
+		inhibitLeft = true;
+		}
+	}
+	else
+	{
+		inhibitLeft = false;
+	}
+
+
+	if (wnd.kbd.KeyIsPressed(s_key)) {
+		if (inhibitDown) {
+
+		}
+		else
+		{
+		vy = vy + 1;
+		inhibitDown = true;
+		}
+	}
+	else
+	{
+		inhibitDown = false;
+	}
+
+
+	if (wnd.kbd.KeyIsPressed(d_key)) {
+		if (inhibitRight) {
+
+		}
+		else
+		{
+		vx = vx + 1;
+		inhibitRight = true;
+		}
+
 	
-	int r = 255, g = 255, b = 255;
-	const int w_key = 0x57, a_key= 0x41, s_key = 0x53, d_key= 0x44;
+	}
+	else
+	{
+		inhibitRight = false;
+	}
+
+	//moving the crosshair
+	x = x + vx;
+	y = y + vy;
 
 	//color
 	if (wnd.kbd.KeyIsPressed(VK_SPACE)) {
@@ -53,23 +116,15 @@ void Game::ComposeFrame()
 		g = 165;
 		b = 0;
 	}
-	
-	//postiion
-	if (wnd.kbd.KeyIsPressed(w_key)) {
-		y = y - 2;
-	}
-	if (wnd.kbd.KeyIsPressed(a_key)) {
-		x = x - 2;
-	}
-	if (wnd.kbd.KeyIsPressed(s_key)) {
-		y = y + 2;
-	}
-	if (wnd.kbd.KeyIsPressed(d_key)) {
-		x = x + 2;
-	}
-	
-	//shape
-	if (wnd.kbd.KeyIsPressed(VK_SHIFT)) {
+
+
+	shapeChange = wnd.kbd.KeyIsPressed(VK_SHIFT);
+}
+
+void Game::ComposeFrame()
+{
+	//shift shape
+	if (shapeChange) {
 		gfx.PutPixel(x-105, y, r, g, b);
 		
 		
@@ -90,6 +145,7 @@ void Game::ComposeFrame()
 		gfx.PutPixel(x, y+105, r, g, b);
 
 	}
+	//default shape
 	else {
 		gfx.PutPixel(x - 5, y, r, g, b);
 		gfx.PutPixel(x - 4, y, r, g, b);

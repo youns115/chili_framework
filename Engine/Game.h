@@ -44,5 +44,19 @@ private:
 	/*  User Variables   */
 	int x = 400;
 	int y = 300;
+	float vx = 0;
+	float vy = 0;
+	const int w_key = 0x57, a_key = 0x41, s_key = 0x53, d_key = 0x44;
+	int r = 255, g = 255, b = 255;
+
+	//initial shape change value
+	bool shapeChange = false;
+
+	//prevent from increasing vilocity per frame(and change it to per press)
+	bool inhibitUp = false;
+	bool inhibitLeft = false;
+	bool inhibitDown = false;
+	bool inhibitRight = false;
+
 	/********************************/
 };

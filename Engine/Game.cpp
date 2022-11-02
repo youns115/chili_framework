@@ -39,6 +39,7 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	shapeChange = wnd.kbd.KeyIsPressed(VK_SHIFT);
 
 	//postiion
 	if (wnd.kbd.KeyIsPressed(w_key)) {
@@ -115,34 +116,61 @@ void Game::UpdateModel()
 		//orange
 		g = 165;
 		b = 0;
+
+	}
+	else
+	{
+		g = 255;
+		b = 255;
+	}
+	
+	//screen cap limit for default shape
+	if (x +5 >= gfx.ScreenWidth) {
+		x = gfx.ScreenWidth -6;
+		vx = 0;
+
+	}
+	if (x - 5 < 0) {
+		x = 5;
+		vx = 0;
+	}
+	if (y + 5 >= gfx.ScreenHeight) {
+		y = gfx.ScreenHeight - 6;
+		vy = 0;
+
+	}
+	if (y - 5 < 0) {
+		y = 5;
+		vy = 0;
+
 	}
 
 
-	shapeChange = wnd.kbd.KeyIsPressed(VK_SHIFT);
+	//change color based on area
+	/*
+	if (x > 200 && x < 300) {
+			g = 50;
+			b = 100;
+			b = 240;
+	}
+	*/
 }
 
 void Game::ComposeFrame()
 {
 	//shift shape
 	if (shapeChange) {
-		gfx.PutPixel(x-105, y, r, g, b);
-		
-		
-		gfx.PutPixel(x-104, y, r, g, b);
-		gfx.PutPixel(x-103, y, r, g, b);
+		gfx.PutPixel(x-5, y, r, g, b);
+		gfx.PutPixel(x-4, y, r, g, b);
+		gfx.PutPixel(x-3, y, r, g, b);
 					   
-		gfx.PutPixel(x+103, y, r, g, b);
-		gfx.PutPixel(x+104, y, r, g, b);
-		gfx.PutPixel(x+105, y, r, g, b);
+		gfx.PutPixel(x+3, y, r, g, b);
+		gfx.PutPixel(x+4, y, r, g, b);
+		gfx.PutPixel(x+5, y, r, g, b);
 
-		gfx.PutPixel(x, y-105, r, g, b);
-		gfx.PutPixel(x, y-104, r, g, b);
-		gfx.PutPixel(x, y-103, r, g, b);
-		gfx.PutPixel(x, y, r, g, b);
-					
-		gfx.PutPixel(x, y+103, r, g, b);
-		gfx.PutPixel(x, y+104, r, g, b);
-		gfx.PutPixel(x, y+105, r, g, b);
+		gfx.PutPixel(x, y+3, r, g, b);
+		gfx.PutPixel(x, y+4, r, g, b);
+		gfx.PutPixel(x, y+5, r, g, b);
 
 	}
 	//default shape

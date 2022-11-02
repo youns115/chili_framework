@@ -42,13 +42,25 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables   */
-	int x = 400;
-	int y = 300;
+	int x_mobile = 400;
+	int y_mobile = 300;
+
+	//vilocity of the crosshair
 	float vx = 0;
 	float vy = 0;
+	
+	//input keys
 	const int w_key = 0x57, a_key = 0x41, s_key = 0x53, d_key = 0x44;
-	int r = 255, g = 255, b = 255;
 
+	//colors
+	int r_mobile = 255, g_mobile = 255, b_mobile = 255;
+	int r= 255, g = 255, b = 255;
+
+	//static crosshair
+	int x_static = 200;
+	int y_static = 100;
+
+	bool colliding = false;
 	//initial shape change value
 	bool shapeChange = false;
 

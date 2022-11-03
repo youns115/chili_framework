@@ -40,7 +40,7 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	shapeChange = wnd.kbd.KeyIsPressed(VK_SHIFT);
-
+	
 	//postiion
 	if (wnd.kbd.KeyIsPressed(w_key)) {
 		if (inhibitUp) {
@@ -112,18 +112,7 @@ void Game::UpdateModel()
 	x_mobile = x_mobile + vx;
 	y_mobile = y_mobile + vy;
 
-	//color
-	if (wnd.kbd.KeyIsPressed(VK_SPACE)) {
-		//orange
-		g_mobile = 165;
-		b_mobile = 0;
-
-	}
-	else
-	{
-		g_mobile = 255;
-		b_mobile = 255;
-	}
+	
 	
 	//screen cap limit for default shape
 	if (x_mobile +5 >= gfx.ScreenWidth) {
@@ -166,11 +155,29 @@ void Game::UpdateModel()
 		right_mobile>left_static &&
 		bottom_mobile>top_static) 
 	{
-		shapeChange = true;
+		r_mobile = 36;
+		g_mobile = 233;
+		b_mobile = 135;
+		
 	}
 	else
 	{
-		shapeChange = false;
+		r_mobile = 255;
+		g_mobile = 255;
+		b_mobile = 255;
+	}
+	//color
+	if (wnd.kbd.KeyIsPressed(VK_SPACE)) {
+		//orange
+		g_mobile = 165;
+		b_mobile = 0;
+		r_mobile = 255;
+	}
+	else
+	{
+		g_mobile = 255;
+		b_mobile = 255;
+
 	}
 	
 }
@@ -178,6 +185,7 @@ void Game::UpdateModel()
 void Game::ComposeFrame()
 {
 	//static crosshair
+	
 	gfx.PutPixel(x_static - 5, y_static, r, g, b);
 	gfx.PutPixel(x_static - 4, y_static, r, g, b);
 	gfx.PutPixel(x_static - 3, y_static, r, g, b);

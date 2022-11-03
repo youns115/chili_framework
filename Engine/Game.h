@@ -60,7 +60,7 @@ private:
 	int x_static = 200;
 	int y_static = 100;
 
-	bool colliding = false;
+	//bool colliding = false;
 	//initial shape change value
 	bool shapeChange = false;
 

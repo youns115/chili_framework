@@ -36,6 +36,9 @@ private:
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
+	void DrawBox(int x, int y, int r, int g, int b);
+	bool OverlapTest(int box0x, int box0y, int box1x, int box1y);
+
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -54,21 +57,31 @@ private:
 
 	//colors
 	int r_mobile = 255, g_mobile = 255, b_mobile = 255;
-	int r= 255, g = 255, b = 255;
+	
 
 	//static crosshair
-	int x_static = 200;
-	int y_static = 100;
+	int x_static0 = 200;
+	int y_static0 = 100;
+
+	int x_static1 = 300;
+	int y_static1 = 200;
+
+	int x_static2 = 400;
+	int y_static2 = 500;
+
+	int x_static3 = 700;
+	int y_static3 = 500;
 
 	//bool colliding = false;
 	//initial shape change value
 	bool shapeChange = false;
-
+	bool colliding = false;
 	//prevent from increasing vilocity per frame(and change it to per press)
 	bool inhibitUp = false;
 	bool inhibitLeft = false;
 	bool inhibitDown = false;
 	bool inhibitRight = false;
 
+	
 	/********************************/
 };

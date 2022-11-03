@@ -39,7 +39,7 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	shapeChange = wnd.kbd.KeyIsPressed(VK_SHIFT);
+	
 	
 	//postiion
 	if (wnd.kbd.KeyIsPressed(w_key)) {
@@ -108,6 +108,7 @@ void Game::UpdateModel()
 		inhibitRight = false;
 	}
 
+
 	//moving the crosshair
 	x_mobile = x_mobile + vx;
 	y_mobile = y_mobile + vy;
@@ -135,38 +136,9 @@ void Game::UpdateModel()
 
 	}
 
-
-	//defining mobile reticle sides
-	const int left_mobile = x_mobile - 5;
-	const int right_mobile = x_mobile + 5;
-	const int top_mobile = y_mobile - 5;
-	const int bottom_mobile = y_mobile + 5;
-
-	//define static reticle sides
-	const int left_static = x_static - 5;
-	const int right_static = x_static + 5;
-	const int top_static = y_static - 5;
-	const int bottom_static = y_static + 5;
 	
+	//colorchange
 	
-	//change shape when x_mobile and x_static colide
-	if (left_mobile<right_static&&
-		top_mobile<bottom_static&&
-		right_mobile>left_static &&
-		bottom_mobile>top_static) 
-	{
-		r_mobile = 36;
-		g_mobile = 233;
-		b_mobile = 135;
-		
-	}
-	else
-	{
-		r_mobile = 255;
-		g_mobile = 255;
-		b_mobile = 255;
-	}
-	//color
 	if (wnd.kbd.KeyIsPressed(VK_SPACE)) {
 		//orange
 		g_mobile = 165;
@@ -180,61 +152,101 @@ void Game::UpdateModel()
 
 	}
 	
+	
+	
+
+	//shift shape
+	if (shapeChange) {
+		
+		gfx.PutPixel(x_mobile - 5, y_mobile, r_mobile, g_mobile, b_mobile);
+		gfx.PutPixel(x_mobile - 4, y_mobile, r_mobile, g_mobile, b_mobile);
+		gfx.PutPixel(x_mobile - 3, y_mobile, r_mobile, g_mobile, b_mobile);
+
+		gfx.PutPixel(x_mobile + 3, y_mobile, r_mobile, g_mobile, b_mobile);
+		gfx.PutPixel(x_mobile + 4, y_mobile, r_mobile, g_mobile, b_mobile);
+		gfx.PutPixel(x_mobile + 5, y_mobile, r_mobile, g_mobile, b_mobile);
+
+		gfx.PutPixel(x_mobile, y_mobile + 3, r_mobile, g_mobile, b_mobile);
+		gfx.PutPixel(x_mobile, y_mobile + 4, r_mobile, g_mobile, b_mobile);
+		gfx.PutPixel(x_mobile, y_mobile + 5, r_mobile, g_mobile, b_mobile);
+
+	}
+	//default shape
+	else {
+		DrawBox(x_mobile,y_mobile,r_mobile,g_mobile,b_mobile);
+	}
+
+	shapeChange = wnd.kbd.KeyIsPressed(VK_SHIFT);
+	colliding =
+		OverlapTest(x_static0, y_static0, x_mobile, y_mobile) ||
+		OverlapTest(x_static1, y_static1, x_mobile, y_mobile) ||
+		OverlapTest(x_static2, y_static2, x_mobile, y_mobile) ||
+		OverlapTest(x_static3, y_static3, x_mobile, y_mobile) ;
 }
 
 void Game::ComposeFrame()
 {
-	//static crosshair
 	
-	gfx.PutPixel(x_static - 5, y_static, r, g, b);
-	gfx.PutPixel(x_static - 4, y_static, r, g, b);
-	gfx.PutPixel(x_static - 3, y_static, r, g, b);
-				   
-	gfx.PutPixel(x_static + 3, y_static, r, g, b);
-	gfx.PutPixel(x_static + 4, y_static, r, g, b);
-	gfx.PutPixel(x_static + 5, y_static, r, g, b);
-				   
-	gfx.PutPixel(x_static, y_static - 5, r, g, b);
-	gfx.PutPixel(x_static, y_static - 4, r, g, b);
-	gfx.PutPixel(x_static, y_static - 3, r, g, b);
-				   			
-	gfx.PutPixel(x_static, y_static + 3, r, g, b);
-	gfx.PutPixel(x_static, y_static + 4, r, g, b);
-	gfx.PutPixel(x_static, y_static + 5, r, g, b);
+	DrawBox(x_static0, y_static0, 0, 255, 0);
+	DrawBox(x_static1, y_static1, 0, 255, 0);
+	DrawBox(x_static2, y_static2, 0, 255, 0);
+	DrawBox(x_static3, y_static3, 0, 255, 0);
 
 
-	//shift shape
-	if (shapeChange) {
-		gfx.PutPixel(x_mobile-5, y_mobile, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile-4, y_mobile, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile-3, y_mobile, r_mobile, g_mobile, b_mobile);
-					  			  					  			
-		gfx.PutPixel(x_mobile+3, y_mobile, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile+4, y_mobile, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile+5, y_mobile, r_mobile, g_mobile, b_mobile);
-					  								 			
-		gfx.PutPixel(x_mobile, y_mobile+3, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile, y_mobile+4, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile, y_mobile+5, r_mobile, g_mobile, b_mobile);
-					  			
+	if (colliding) {
+		DrawBox(x_mobile, y_mobile, 255, 0, 0);
 	}
-	//default shape
-	else {
-		gfx.PutPixel(x_mobile - 5, y_mobile, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile - 4, y_mobile, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile - 3, y_mobile, r_mobile, g_mobile, b_mobile);
-					  						  					  
-		gfx.PutPixel(x_mobile + 3, y_mobile, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile + 4, y_mobile, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile + 5, y_mobile, r_mobile, g_mobile, b_mobile);
-					  						  					  
-		gfx.PutPixel(x_mobile, y_mobile - 5, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile, y_mobile - 4, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile, y_mobile - 3, r_mobile, g_mobile, b_mobile);
-					  						  					
-		gfx.PutPixel(x_mobile, y_mobile + 3, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile, y_mobile + 4, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile, y_mobile + 5, r_mobile, g_mobile, b_mobile);
-	}				  
+	else
+	{
+		colliding = false;
+	}
+	
 
 }
+
+	void Game::DrawBox(int x, int y, int r, int g, int b)
+	{
+		//static crosshair
+
+		gfx.PutPixel(x - 5, y, r, g, b);
+		gfx.PutPixel(x - 4, y, r, g, b);
+		gfx.PutPixel(x - 3, y, r, g, b);
+
+		gfx.PutPixel(x + 3, y, r, g, b);
+		gfx.PutPixel(x + 4, y, r, g, b);
+		gfx.PutPixel(x + 5, y, r, g, b);
+
+		gfx.PutPixel(x, y - 5, r, g, b);
+		gfx.PutPixel(x, y - 4, r, g, b);
+		gfx.PutPixel(x, y - 3, r, g, b);
+
+		gfx.PutPixel(x, y + 3, r, g, b);
+		gfx.PutPixel(x, y + 4, r, g, b);
+		gfx.PutPixel(x, y + 5, r, g, b);
+	}
+
+	bool Game::OverlapTest(int box0x, int box0y, int box1x, int box1y)
+	{
+		
+		//defining box0 reticle sides
+		const int left_box0 = box0x - 5;
+		const int right_box0 = box0x + 5;
+		const int top_box0 = box0y - 5;
+		const int bottom_box0 = box0y + 5;
+
+		//define box1 reticle sides
+		const int left_box1 = box1x - 5;
+		const int right_box1 = box1x + 5;
+		const int top_box1 = box1y - 5;
+		const int bottom_box1 = box1y + 5;
+
+
+
+		//change shape when x_box0 and x_box1 colide
+		return 
+			left_box0 <= right_box1 &&
+			top_box0 <= bottom_box1 &&
+			right_box0 >= left_box1 &&
+			bottom_box0 >= top_box1;
+		
+	}

@@ -35,19 +35,16 @@ public:
 private:
 	void ComposeFrame();
 	void UpdateModel();
-	/********************************/
-	/*  User Functions              */
-
+	/*  User Functions  */
 	void DrawBox(int x, int y, int r, int g, int b);
 	bool OverlapTest(int box0x, int box0y, int box1x, int box1y);
-	void DrawBoxTshape(int x, int y, int r, int g, int b);
-	
-	/********************************/
+	int CapScreenX(int x);
+	int CapScreenY(int y);
 
 private:
 	MainWindow& wnd;
 	Graphics gfx;
-	/********************************/
+	
 	/*  User Variables   */
 	int x_mobile = 400;
 	int y_mobile = 300;
@@ -58,10 +55,6 @@ private:
 	
 	//input keys
 	const int w_key = 0x57, a_key = 0x41, s_key = 0x53, d_key = 0x44;
-
-	//colors
-	int r_mobile = 255, g_mobile = 255, b_mobile = 255;
-	
 
 	//static crosshairs
 	int x_static0 = 200;
@@ -76,17 +69,10 @@ private:
 	int x_static3 = 700;
 	int y_static3 = 500;
 
-	
-	//initial shape change and colliding value
-	bool shapeChange = false;
-
 	bool colliding = false;
 	//prevent from increasing vilocity per frame(and change it to per press)
 	bool inhibitUp = false;
 	bool inhibitLeft = false;
 	bool inhibitDown = false;
 	bool inhibitRight = false;
-
-	
-	/********************************/
 };

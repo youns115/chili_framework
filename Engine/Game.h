@@ -31,15 +31,19 @@ public:
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
 	void Go();
+
 private:
 	void ComposeFrame();
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
+
 	void DrawBox(int x, int y, int r, int g, int b);
 	bool OverlapTest(int box0x, int box0y, int box1x, int box1y);
-
+	void DrawBoxTshape(int x, int y, int r, int g, int b);
+	
 	/********************************/
+
 private:
 	MainWindow& wnd;
 	Graphics gfx;
@@ -59,7 +63,7 @@ private:
 	int r_mobile = 255, g_mobile = 255, b_mobile = 255;
 	
 
-	//static crosshair
+	//static crosshairs
 	int x_static0 = 200;
 	int y_static0 = 100;
 
@@ -72,9 +76,10 @@ private:
 	int x_static3 = 700;
 	int y_static3 = 500;
 
-	//bool colliding = false;
-	//initial shape change value
+	
+	//initial shape change and colliding value
 	bool shapeChange = false;
+
 	bool colliding = false;
 	//prevent from increasing vilocity per frame(and change it to per press)
 	bool inhibitUp = false;

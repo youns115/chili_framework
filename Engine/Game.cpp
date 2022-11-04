@@ -90,6 +90,7 @@ void Game::UpdateModel()
 	}
 
 
+
 	if (wnd.kbd.KeyIsPressed(d_key)) {
 		
 		if (inhibitRight) {
@@ -158,30 +159,24 @@ void Game::UpdateModel()
 	//shift shape
 	if (shapeChange) {
 		
-		gfx.PutPixel(x_mobile - 5, y_mobile, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile - 4, y_mobile, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile - 3, y_mobile, r_mobile, g_mobile, b_mobile);
-
-		gfx.PutPixel(x_mobile + 3, y_mobile, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile + 4, y_mobile, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile + 5, y_mobile, r_mobile, g_mobile, b_mobile);
-
-		gfx.PutPixel(x_mobile, y_mobile + 3, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile, y_mobile + 4, r_mobile, g_mobile, b_mobile);
-		gfx.PutPixel(x_mobile, y_mobile + 5, r_mobile, g_mobile, b_mobile);
+		DrawBoxTshape(x_mobile,y_mobile,r_mobile,g_mobile,b_mobile);
 
 	}
-	//default shape
+
+	//default mobile shape
 	else {
 		DrawBox(x_mobile,y_mobile,r_mobile,g_mobile,b_mobile);
 	}
 
 	shapeChange = wnd.kbd.KeyIsPressed(VK_SHIFT);
+
 	colliding =
 		OverlapTest(x_static0, y_static0, x_mobile, y_mobile) ||
 		OverlapTest(x_static1, y_static1, x_mobile, y_mobile) ||
 		OverlapTest(x_static2, y_static2, x_mobile, y_mobile) ||
 		OverlapTest(x_static3, y_static3, x_mobile, y_mobile) ;
+
+	
 }
 
 void Game::ComposeFrame()
@@ -192,15 +187,16 @@ void Game::ComposeFrame()
 	DrawBox(x_static2, y_static2, 0, 255, 0);
 	DrawBox(x_static3, y_static3, 0, 255, 0);
 
-
 	if (colliding) {
 		DrawBox(x_mobile, y_mobile, 255, 0, 0);
+
 	}
 	else
 	{
 		colliding = false;
 	}
-	
+
+
 
 }
 
@@ -225,6 +221,23 @@ void Game::ComposeFrame()
 		gfx.PutPixel(x, y + 5, r, g, b);
 	}
 
+	void Game::DrawBoxTshape(int x, int y, int r, int g, int b)
+	{
+		gfx.PutPixel(x - 5, y, r, g, b);
+		gfx.PutPixel(x - 4, y, r, g, b);
+		gfx.PutPixel(x - 3, y, r, g, b);
+
+		gfx.PutPixel(x + 3, y, r, g, b);
+		gfx.PutPixel(x + 4, y, r, g, b);
+		gfx.PutPixel(x + 5, y, r, g, b);
+
+		
+
+		gfx.PutPixel(x, y + 3, r, g, b);
+		gfx.PutPixel(x, y + 4, r, g, b);
+		gfx.PutPixel(x, y + 5, r, g, b);
+	}
+
 	bool Game::OverlapTest(int box0x, int box0y, int box1x, int box1y)
 	{
 		
@@ -242,7 +255,7 @@ void Game::ComposeFrame()
 
 
 
-		//change shape when x_box0 and x_box1 colide
+		//change color when x_box0 and x_box1 colide
 		return 
 			left_box0 <= right_box1 &&
 			top_box0 <= bottom_box1 &&

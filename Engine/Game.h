@@ -36,43 +36,12 @@ private:
 	void ComposeFrame();
 	void UpdateModel();
 	/*  User Functions  */
-	void DrawBox(int x, int y, int r, int g, int b);
-	bool OverlapTest(int box0x, int box0y, int box1x, int box1y);
-	int CapScreenX(int x);
-	int CapScreenY(int y);
+	
 
 private:
 	MainWindow& wnd;
 	Graphics gfx;
 	
 	/*  User Variables   */
-	int x_mobile = 400;
-	int y_mobile = 300;
-
-	//vilocity of the crosshair
-	float vx = 0;
-	float vy = 0;
 	
-	//input keys
-	const int w_key = 0x57, a_key = 0x41, s_key = 0x53, d_key = 0x44;
-
-	//static crosshairs
-	int x_static0 = 200;
-	int y_static0 = 100;
-
-	int x_static1 = 300;
-	int y_static1 = 200;
-
-	int x_static2 = 400;
-	int y_static2 = 500;
-
-	int x_static3 = 700;
-	int y_static3 = 500;
-
-	bool colliding = false;
-	//prevent from increasing vilocity per frame(and change it to per press)
-	bool inhibitUp = false;
-	bool inhibitLeft = false;
-	bool inhibitDown = false;
-	bool inhibitRight = false;
 };

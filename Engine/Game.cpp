@@ -20,13 +20,25 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
-
+#include <random>
 
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd )
 {
+	std::random_device rd;
+	std::uniform_int_distribution<int> xDist(0,770);
+	std::uniform_int_distribution<int> yDist(0, 570);
+
+	poo0X = xDist(rd);
+	poo0Y = yDist(rd);
+
+	poo1X = xDist(rd);
+	poo1Y = yDist(rd);
+
+	poo2X = xDist(rd);
+	poo2Y = yDist(rd);
 }
 
 void Game::Go()

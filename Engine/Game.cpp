@@ -29043,7 +29043,7 @@ void Game::DrawTitleScreen(int x, int y)
 
 int Game::ClampScreenX(int x, int width)
 {
-	const int right = +width;
+	const int right = x + width;
 	if (x < 0) {
 		return 0;
 	}
@@ -29058,7 +29058,7 @@ int Game::ClampScreenX(int x, int width)
 
 int Game::ClampScreenY(int y, int height)
 {
-	const int right = +height;
+	const int right = y + height;
 	if (y < 0) {
 		return 0;
 	}

@@ -31,7 +31,7 @@ public:
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
 	void Go();
-
+	
 
 private:
 	void ComposeFrame();
@@ -39,6 +39,8 @@ private:
 	/*  User Functions  */
 	void DrawFace(int x, int y);
 	void DrawPoo(int x, int y);
+	void DrawGameOver(int x, int y);
+	void DrawTitleScreen(int x, int y);
 	int ClampScreenX(int x, int width);
 	int ClampScreenY(int y, int height);
 	bool IsColliding(int x0, int y0, int width0, int height0,
@@ -68,6 +70,7 @@ private:
 	int pooWidth = 24;
 	int pooHeight = 24;
 	const int w_key = 0x57, a_key = 0x41, s_key = 0x53, d_key = 0x44;
-
+	
+	bool isStarted = false;
 
 };

@@ -38,7 +38,7 @@ private:
 	void UpdateModel();
 	/*  User Functions  */
 	void DrawFace(int x, int y);
-	void DrawPoo(int x, int y);
+	void Drawfood(int x, int y);
 	void DrawGameOver(int x, int y);
 	void DrawTitleScreen(int x, int y);
 	int ClampScreenX(int x, int width);
@@ -55,20 +55,21 @@ private:
 	int dudeY = 300;
 	int dudeWidth = 20;
 	int dudeHeight = 20;
-	int poo0X = 300;
-	int poo0Y = 150;
-	bool poo0IsEaten = false;
 
-	int poo1X = 100;
-	int poo1Y = 500;
-	bool poo1IsEaten = false;
+	int food0X = 300;
+	int food0Y = 150;
+	bool food0IsEaten = false;
 
-	int poo2X = 600;
-	int poo2Y = 400;
-	bool poo2IsEaten = false;
+	int food1X = 100;
+	int food1Y = 500;
+	bool food1IsEaten = false;
 
-	int pooWidth = 24;
-	int pooHeight = 24;
+	int food2X = 600;
+	int food2Y = 400;
+	bool food2IsEaten = false;
+
+	int foodWidth = 24;
+	int foodHeight = 24;
 	const int w_key = 0x57, a_key = 0x41, s_key = 0x53, d_key = 0x44;
 	
 	bool isStarted = false;

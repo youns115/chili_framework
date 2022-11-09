@@ -58,14 +58,20 @@ private:
 
 	int food0X = 300;
 	int food0Y = 150;
+	int food0vx = 1;
+	int food0vy = 1;
 	bool food0IsEaten = false;
 
 	int food1X = 100;
 	int food1Y = 500;
+	int food1vx = -1;
+	int food1vy = 1;
 	bool food1IsEaten = false;
 
 	int food2X = 600;
 	int food2Y = 400;
+	int food2vx = 1;
+	int food2vy = -1;
 	bool food2IsEaten = false;
 
 	int foodWidth = 24;

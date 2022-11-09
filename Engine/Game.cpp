@@ -77,6 +77,66 @@ void Game::UpdateModel()
 		dudeY = ClampScreenY(dudeY, dudeHeight);
 
 
+		food0X += food0vx;
+		food0Y += food0vy;
+		food1X += food1vx;
+		food1Y += food1vy;
+		food2X += food2vx;
+		food2Y += food2vy;
+		{
+			const int food0Xold = food0X;
+			const int food0Yold = food0Y;
+
+			food0X = ClampScreenX(food0X, foodWidth);
+			if (food0X != food0Xold)
+			{
+				food0vx = -food0vx;
+			}
+			food0Y = ClampScreenY(food0Y, foodHeight);
+			if (food0Y != food0Yold)
+			{
+				food0vy = -food0vy;
+			}
+		}
+			const int food1Xold = food1X;
+			const int food1Yold = food1Y;
+
+			{
+				const int food1Xold = food1X;
+				const int food1Yold = food1Y;
+
+				food1X = ClampScreenX(food1X, foodWidth);
+				if (food1X != food1Xold)
+				{
+					food1vx = -food1vx;
+				}
+				food1Y = ClampScreenY(food1Y, foodHeight);
+				if (food1Y != food1Yold)
+				{
+					food1vy = -food1vy;
+				}
+			}
+			const int food2Xold = food2X;
+			const int food2Yold = food2Y;
+
+			{
+				const int food2Xold = food2X;
+				const int food2Yold = food2Y;
+
+				food2X = ClampScreenX(food2X, foodWidth);
+				if (food2X != food2Xold)
+				{
+					food2vx = -food2vx;
+				}
+				food2Y = ClampScreenY(food2Y, foodHeight);
+				if (food2Y != food2Yold)
+				{
+					food2vy = -food2vy;
+				}
+			}
+			
+
+
 
 		if (IsColliding(dudeX, dudeY, dudeWidth, dudeHeight,
 			food0X, food0Y, foodWidth, foodHeight))

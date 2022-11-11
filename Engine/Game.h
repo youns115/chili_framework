@@ -74,6 +74,12 @@ private:
 	int food2vy = -1;
 	bool food2IsEaten = false;
 
+	int food3X = 450;
+	int food3Y = 200;
+	int food3vx = -1;
+	int food3vy = 1;
+	bool food3IsEaten = false;
+
 	int foodWidth = 24;
 	int foodHeight = 24;
 	const int w_key = 0x57, a_key = 0x41, s_key = 0x53, d_key = 0x44;

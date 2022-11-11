@@ -83,6 +83,9 @@ void Game::UpdateModel()
 		food1Y += food1vy;
 		food2X += food2vx;
 		food2Y += food2vy;
+		food3X += food3vx;
+		food3Y += food3vy;
+
 		{
 			const int food0Xold = food0X;
 			const int food0Yold = food0Y;
@@ -98,42 +101,55 @@ void Game::UpdateModel()
 				food0vy = -food0vy;
 			}
 		}
+			
+
+		{
 			const int food1Xold = food1X;
 			const int food1Yold = food1Y;
 
+			food1X = ClampScreenX(food1X, foodWidth);
+			if (food1X != food1Xold)
 			{
-				const int food1Xold = food1X;
-				const int food1Yold = food1Y;
-
-				food1X = ClampScreenX(food1X, foodWidth);
-				if (food1X != food1Xold)
-				{
-					food1vx = -food1vx;
-				}
-				food1Y = ClampScreenY(food1Y, foodHeight);
-				if (food1Y != food1Yold)
-				{
-					food1vy = -food1vy;
-				}
+				food1vx = -food1vx;
 			}
+			food1Y = ClampScreenY(food1Y, foodHeight);
+			if (food1Y != food1Yold)
+			{
+				food1vy = -food1vy;
+			}
+		}
+			
+		{
 			const int food2Xold = food2X;
 			const int food2Yold = food2Y;
 
+			food2X = ClampScreenX(food2X, foodWidth);
+			if (food2X != food2Xold)
 			{
-				const int food2Xold = food2X;
-				const int food2Yold = food2Y;
-
-				food2X = ClampScreenX(food2X, foodWidth);
-				if (food2X != food2Xold)
-				{
-					food2vx = -food2vx;
-				}
-				food2Y = ClampScreenY(food2Y, foodHeight);
-				if (food2Y != food2Yold)
-				{
-					food2vy = -food2vy;
-				}
+				food2vx = -food2vx;
 			}
+			food2Y = ClampScreenY(food2Y, foodHeight);
+			if (food2Y != food2Yold)
+			{
+				food2vy = -food2vy;
+			}
+		}
+
+		{
+			const int food3Xold = food3X;
+			const int food3Yold = food3Y;
+
+			food3X = ClampScreenX(food3X, foodWidth);
+			if (food3X != food3Xold)
+			{
+				food3vx = -food3vx;
+			}
+			food3Y = ClampScreenY(food3Y, foodHeight);
+			if (food3Y != food3Yold)
+			{
+				food3vy = -food3vy;
+			}
+		}
 			
 
 
@@ -154,6 +170,11 @@ void Game::UpdateModel()
 			food2X, food2Y, foodWidth, foodHeight))
 		{
 			food2IsEaten = true;
+		}
+		if (IsColliding(dudeX, dudeY, dudeWidth, dudeHeight,
+			food3X, food3Y, foodWidth, foodHeight))
+		{
+			food3IsEaten = true;
 		}
 	}
 	else {
@@ -187,7 +208,11 @@ void Game::ComposeFrame()
 
 			Drawfood(food2X, food2Y);
 		}
-		if (food0IsEaten && food1IsEaten && food2IsEaten) {
+		if (!food3IsEaten) {
+
+			Drawfood(food3X, food3Y);
+		}
+		if (food0IsEaten && food1IsEaten && food2IsEaten && food3IsEaten) {
 			DrawGameOver(275, 220);
 			
 		}

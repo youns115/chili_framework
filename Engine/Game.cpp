@@ -58,22 +58,22 @@ void Game::UpdateModel()
 	if (isStarted) {
 		if (wnd.kbd.KeyIsPressed(w_key)) {
 
-			dudeY -= 1;
+			dudeY -= 2;
 		}
 
 		if (wnd.kbd.KeyIsPressed(a_key)) {
 
-			dudeX -= 1;
+			dudeX -= 2;
 		}
 
 		if (wnd.kbd.KeyIsPressed(s_key)) {
 
-			dudeY += 1;
+			dudeY += 2;
 		}
 
 		if (wnd.kbd.KeyIsPressed(d_key)) {
 
-			dudeX += 1;
+			dudeX += 2;
 		}
 
 		dudeX = ClampScreenX(dudeX, dudeWidth);

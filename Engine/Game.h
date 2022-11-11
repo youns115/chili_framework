@@ -85,6 +85,4 @@ private:
 	const int w_key = 0x57, a_key = 0x41, s_key = 0x53, d_key = 0x44;
 	
 	bool isStarted = false;
-
-
 };

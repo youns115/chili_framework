@@ -38,6 +38,9 @@ Game::Game( MainWindow& wnd )
 
 	food2X = xDist(rd);
 	food2Y = yDist(rd);
+
+	food3X = xDist(rd);
+	food3Y = yDist(rd);
 }
 
 void Game::Go()

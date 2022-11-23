@@ -21,10 +21,15 @@
 #include "MainWindow.h"
 #include "Game.h"
 #include <random>
+
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	Music(L"Hyrule.wav"),
+	eatSound(L"Eat.wav"),
+	GameOver(L"GameOver.wav")
+
 {
 	std::random_device rd;
 	std::uniform_int_distribution<int> xDist(0,770);
@@ -160,24 +165,48 @@ void Game::UpdateModel()
 		if (IsColliding(dudeX, dudeY, dudeWidth, dudeHeight,
 			food0X, food0Y, foodWidth, foodHeight))
 		{
-			food0IsEaten = true;
+			if (food0EatenMusic) {
+				food0EatenMusic = false;
+				food0IsEaten = true;
+				if (food0IsEaten = true) {
+					eatSound.Play();
+				}
+			}
 		}
 
 		if (IsColliding(dudeX, dudeY, dudeWidth, dudeHeight,
 			food1X, food1Y, foodWidth, foodHeight))
 		{
-			food1IsEaten = true;
+			if (food1EatenMusic) {
+				food1EatenMusic = false;
+				food1IsEaten = true;
+				if (food1IsEaten = true) {
+					eatSound.Play();
+				}
+			}
 		}
 
 		if (IsColliding(dudeX, dudeY, dudeWidth, dudeHeight,
 			food2X, food2Y, foodWidth, foodHeight))
 		{
-			food2IsEaten = true;
+			if (food2EatenMusic) {
+				food2EatenMusic = false;
+				food2IsEaten = true;
+				if (food2IsEaten = true) {
+					eatSound.Play();
+				}
+			}
 		}
 		if (IsColliding(dudeX, dudeY, dudeWidth, dudeHeight,
 			food3X, food3Y, foodWidth, foodHeight))
 		{
-			food3IsEaten = true;
+			if (food3EatenMusic) {
+				food3EatenMusic = false;
+				food3IsEaten = true;
+				if (food3IsEaten = true) {
+					eatSound.Play();
+				}
+			}
 		}
 	}
 	else {
@@ -187,11 +216,13 @@ void Game::UpdateModel()
 	}
 
 	
+	
 }
 
 
 void Game::ComposeFrame()
 {
+	
 	if (!isStarted) {
 		
 		DrawTitleScreen(330,260);
@@ -217,10 +248,25 @@ void Game::ComposeFrame()
 		}
 		if (food0IsEaten && food1IsEaten && food2IsEaten && food3IsEaten) {
 			DrawGameOver(275, 220);
+			Music.StopOne();
+
+			
+		}
+		if (food0IsEaten && food1IsEaten && food2IsEaten && food3IsEaten) {
+			if (GameOverMusic) {
+				GameOverMusic = false;
+				GameOver.Play();
+			}
+
 			
 		}
 	}
 	
+	if (gameStartsMusic) {
+		gameStartsMusic = false;
+		Music.Play();
+	}
+
 
 }
 

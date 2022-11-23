@@ -229,6 +229,11 @@
   <ItemGroup>
     <Image Include="Chili.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\Eat.wav" />
+    <Media Include="..\..\GameOver.wav" />
+    <Media Include="..\..\Hyrule.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

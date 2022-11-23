@@ -19,10 +19,10 @@
  *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
  ******************************************************************************************/
 #pragma once
-
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "Sound.h"
 
 class Game
 {
@@ -45,11 +45,15 @@ private:
 	int ClampScreenY(int y, int height);
 	bool IsColliding(int x0, int y0, int width0, int height0,
 		int x1, int y1, int width1, int height1);
+	
+	
 
 private:
 	MainWindow& wnd;
 	Graphics gfx;
-	
+	Sound eatSound;
+	Sound Music;
+	Sound GameOver;
 	/*  User Variables   */
 	int dudeX =400;
 	int dudeY = 300;
@@ -85,4 +89,11 @@ private:
 	const int w_key = 0x57, a_key = 0x41, s_key = 0x53, d_key = 0x44;
 	
 	bool isStarted = false;
+
+	bool food0EatenMusic = true;
+	bool food1EatenMusic = true;
+	bool food2EatenMusic = true;
+	bool food3EatenMusic = true;
+	bool gameStartsMusic = true;
+	bool GameOverMusic = true;
 };

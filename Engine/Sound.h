@@ -27,7 +27,6 @@
 #include <thread>
 #include "ChiliException.h"
 #include <wrl\client.h>
-#include "COMInitializer.h"
 
 // forward declare WAVEFORMATEX so we don't have to include bullshit headers
 struct tWAVEFORMATEX;
@@ -57,14 +56,6 @@ public:
 		std::wstring filename;
 	};
 private:
-	class MFInitializer
-	{
-	public:
-		MFInitializer();
-		~MFInitializer();
-	private:
-		HRESULT hr;
-	};
 	class XAudioDll
 	{
 	private:
@@ -112,15 +103,12 @@ public:
 public:
 	SoundSystem( const SoundSystem& ) = delete;
 	static SoundSystem& Get();
-	static void SetMasterVolume( float vol = 1.0f );
 	static const WAVEFORMATEX& GetFormat();
 	void PlaySoundBuffer( class Sound& s,float freqMod,float vol );
 private:
 	SoundSystem();
 	void DeactivateChannel( Channel& channel );
 private:
-	COMInitializer comInit;
-	MFInitializer mfInit;
 	XAudioDll xaudio_dll;
 	Microsoft::WRL::ComPtr<struct IXAudio2> pEngine;
 	struct IXAudio2MasteringVoice* pMaster = nullptr;
@@ -142,21 +130,8 @@ class Sound
 {
 	friend SoundSystem::Channel;
 public:
-	enum class LoopType
-	{
-		NotLooping,
-		AutoEmbeddedCuePoints,
-		AutoFullSound,
-		ManualFloat,
-		ManualSample,
-		Invalid
-	};
-public:
-	Sound() = default;
-	// for backwards compatibility--2nd parameter false -> NotLooping (does not work with non-wav)
-	Sound( const std::wstring& fileName,bool loopingWithAutoCueDetect );
-	// do not pass this function Manual LoopTypes!
-	Sound( const std::wstring& fileName,LoopType loopType = LoopType::NotLooping );
+	Sound();
+	Sound( const std::wstring& fileName,bool loopingWithAutoDetect = false );
 	Sound( const std::wstring& fileName,unsigned int loopStart,unsigned int loopEnd );
 	Sound( const std::wstring& fileName,float loopStart,float loopEnd );
 	Sound( Sound&& donor );
@@ -165,16 +140,13 @@ public:
 	void StopOne();
 	void StopAll();
 	~Sound();
-private:
-	static Sound LoadNonWav( const std::wstring& fileName,LoopType loopType,
-							 unsigned int loopStartSample,unsigned int loopEndSample,
-							 float loopStartSeconds,float loopEndSeconds );
-	Sound( const std::wstring& fileName,LoopType loopType,
+private:	
+	Sound( const std::wstring & fileName,bool detectLooping,bool manualLooping,
 		unsigned int loopStartSample,unsigned int loopEndSample,
 		float loopStartSeconds,float loopEndSeconds );
 private:
 	UINT32 nBytes = 0u;
-	bool looping = false;
+	bool looping;
 	unsigned int loopStart;
 	unsigned int loopEnd;
 	std::unique_ptr<BYTE[]> pData;
